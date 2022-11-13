@@ -1,27 +1,43 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import { useState } from 'react';
 import TodoList from '../components/TodoList';
-
+import './style.scss';
 TodoFeature.propTypes = {};
 
 function TodoFeature(props) {
-  const list = [
-    { id: 1, name: 'Eat' },
-    { id: 2, name: 'Sleep' },
-    { id: 3, name: 'Code' },
+  const intList = [
+    { id: 1, name: 'Eat', status: 'new' },
+    { id: 2, name: 'Sleep', status: 'completed' },
+    { id: 3, name: 'Code', status: 'new' },
   ];
+  const [list, setList] = useState(intList);
+  const [filterStatus, setFilterStatus] = useState('all');
 
-  const onSubmitTodoForm = (value) => {
-    console.log('form', value);
+  const handleTodoClick = (todo, index) => {
+    // const clone = [...list];
+    const clone = JSON.parse(JSON.stringify(list));
+    clone[index] = { ...clone[index], status: clone[index].status === 'new' ? 'completed' : 'new' };
+    setList(clone);
   };
+  const handleFilter = (filter) => {
+    setFilterStatus(filter);
+  };
+
+  const filterList = list.filter((item) => item.status === filterStatus || filterStatus === 'all');
 
   return (
     <div>
       <h3>What to do</h3>
-      {/* <form>
-        <TodoForm onsubmit={onSubmitTodoForm}></TodoForm>
-      </form> */}
-      <TodoList todoList={list}></TodoList>
+      <TodoList todoList={filterList} onTodoClick={handleTodoClick}></TodoList>
+      <button className="" onClick={() => handleFilter('all')}>
+        Show all
+      </button>
+      <button className="" onClick={() => handleFilter('new')}>
+        New
+      </button>
+      <button className="" onClick={() => handleFilter('completed')}>
+        Completed
+      </button>
     </div>
   );
 }
