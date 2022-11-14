@@ -4,6 +4,7 @@ import categoryApi from './api/categoriesAPI';
 import { useEffect } from 'react';
 import TodoFeature from './features/Todo/pages';
 import AlbumFeature from './features/Album/pages';
+import Clock from './features/Clock/pages';
 
 function App() {
   useEffect(() => {}, []);
@@ -15,8 +16,9 @@ function App() {
 
   return (
     <div className="App">
-      <TodoFeature />
+      {/* <TodoFeature /> */}
       {/* <AlbumFeature /> */}
+      <Clock />
     </div>
   );
 }
