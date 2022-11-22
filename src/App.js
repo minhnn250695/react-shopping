@@ -5,6 +5,7 @@ import { useEffect } from 'react';
 import TodoFeature from './features/Todo/pages';
 import AlbumFeature from './features/Album/pages';
 import Clock from './features/Clock/pages';
+import { createBrowserRouter, RouterProvider, Route, Router } from 'react-router-dom';
 
 function App() {
   useEffect(() => {}, []);
@@ -14,11 +15,25 @@ function App() {
     console.log(categories);
   };
 
+  const router = createBrowserRouter([
+    { path: 'todo', element: <TodoFeature /> },
+    { path: 'album', element: <AlbumFeature /> },
+    { path: 'clock', element: <Clock /> },
+  ]);
+
   return (
     <div className="App">
-      {/* <TodoFeature /> */}
-      {/* <AlbumFeature /> */}
-      <Clock />
+      <nav>
+        <ul>
+          <li>
+            <a href={`todo`}>Todo</a>
+          </li>
+          <li>
+            <a href={`album`}>Album</a>
+          </li>
+        </ul>
+      </nav>
+      <RouterProvider router={router}></RouterProvider>
     </div>
   );
 }
